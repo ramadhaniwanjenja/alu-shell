@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -al . .. /boot
+find . -type d -not -name '.' | wc -l
