@@ -22,4 +22,3 @@ while [ $hours -le 12 ]; do
     # Incrementing hours
     ((hours++))
 done | head -n 70
-
