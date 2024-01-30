@@ -1,24 +1,14 @@
 #!/usr/bin/env bash
-# This script displays the time for 12 hours and 59 minutes
-
-# Initializing variables
-hours=0
-
-# Using a while loop to display time for 12 hours and 59 minutes
-while [ $hours -le 12 ]; do
-    echo "Hour: $hours"
-    
+#Creating a script that uses a nested loop
+hour=0
+while [ $hour -le 12 ]
+do
+    echo "Hour: $hour"
     minutes=1
-    while [ $minutes -le 59 ]; do
-        echo $minutes
-        ((minutes++))
-        
-        # Checking if the total lines displayed reach 70
-        total_lines=$((hours * 60 + minutes))
-        if [ $total_lines -ge 70 ]; then
-            exit
-        fi
+    while [ $minutes -lt 60 ]
+    do
+	echo "$minutes"
+	((minutes++))
     done
-    
-    ((hours++))
+    ((hour++))
 done
