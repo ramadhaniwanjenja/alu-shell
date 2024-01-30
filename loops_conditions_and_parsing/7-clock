@@ -17,8 +17,14 @@ while [ $hours -le 12 ]; do
 
         # Incrementing minutes
         ((minutes++))
+
+        # Checking if the total lines displayed reach 70
+        total_lines=$(($hours * 60 + $minutes))
+        if [ $total_lines -ge 70 ]; then
+            exit
+        fi
     done
 
     # Incrementing hours
     ((hours++))
-done | head -n 70
+done
