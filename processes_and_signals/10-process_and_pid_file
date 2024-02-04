@@ -1,11 +1,43 @@
-#!/usr/bin/env bash
-#Bash script that displays messages when read some signals
-echo $$ > /var/run/myscript.pid
-trap 'echo "I hate the kill command"; rm -rf /var/run/holbertonscript.pid; exit' SIGTERM
-trap 'echo "Y U no love me?!"' SIGINT
-trap 'rm -rf /var/run/holbertonscript.pid; exit' SIGQUIT
-while :
-do
-    echo "To infinity and beyond"
-    sleep 2
+#!/bin/bash
+
+# Define the PID file path
+PID_FILE="/var/run/myscript.pid"
+
+# Function to handle cleanup and exit
+cleanup_exit() {
+    echo "Deleting PID file and terminating script..."
+    rm -f "$PID_FILE"
+    exit 0
+}
+
+# Trap signals and associate them with cleanup_exit function
+trap 'cleanup_exit' SIGQUIT SIGTERM
+
+# Function to handle SIGINT signal
+handle_sigint() {
+    echo "Y U no love me?!"
+}
+
+# Trap SIGINT and associate it with handle_sigint function
+trap 'handle_sigint' SIGINT
+
+# Function to handle SIGTERM signal
+handle_sigterm() {
+    echo "I hate the kill command"
+    cleanup_exit
+}
+
+# Trap SIGTERM and associate it with handle_sigterm function
+trap 'handle_sigterm' SIGTERM
+
+# Create PID file with the script's PID
+echo "$$" > "$PID_FILE"
+
+# Display message indefinitely
+echo "To infinity and beyond"
+
+# Loop to keep the script running
+while true; do
+    sleep 1
 done
+
